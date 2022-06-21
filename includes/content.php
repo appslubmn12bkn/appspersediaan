@@ -128,6 +128,10 @@ if ($_GET['module'] == 'home') {
   if ($_SESSION['LEVEL'] == 'admin' or $_SESSION['LEVEL'] == 'user') {
     include 'media/aksiunit/sedia_aksiunit.php';
   }
+}elseif ($_GET['module'] == 'c_spamPsedia') {
+  if ($_SESSION['LEVEL'] == 'admin' or $_SESSION['LEVEL'] == 'user') {
+    include 'media/aksiunit/sedia_spamunit.php';
+  }
 }
 
 ?>

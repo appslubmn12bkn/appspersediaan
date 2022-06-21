@@ -1,3 +1,8 @@
+  
+  <?php
+$tgl = mysqli_query($koneksi, "SELECT s_tglawal, s_tglakhir, s_thnang FROM s_settgl ORDER BY idtgl ASC");
+$rs  = mysqli_fetch_array($tgl); 
+  ?>
   <header class="main-header">
     <nav class="navbar navbar-static-top">
       <div class="container-fluid">
@@ -25,16 +30,33 @@
                 <?php 
                 $cek=umenu_akses("?module=t_mohoncek",$_SESSION[NIP]);
                 if ($cek==1 OR $_SESSION[LEVEL]=='admin' OR $_SESSION[LEVEL]=='user') {
+
                 $tabel = mysqli_query($koneksi, 
                 "SELECT count(registrasi) as jumlah FROM c_unitsediaminta WHERE prosedur='6'");
                 if(mysqli_num_rows($tabel) > 0) {
-                $aksi = mysqli_fetch_assoc($tabel);
+                $tb = mysqli_fetch_assoc($tabel);
+                }
+
+                $spam = mysqli_query($koneksi, 
+                " SELECT count(kd_brg) as jspam, tglproses 
+                  FROM c_sediakeluarunit 
+                  WHERE prosedur='41'
+                  AND tglproses between '$rs[s_tglawal]' AND '$rs[s_tglakhir]'");
+                if(mysqli_num_rows($spam) > 0) {
+                $sp = mysqli_fetch_assoc($spam);
                 }
                 ?>
                 <li>
                 <a href="?module=c_aksiProsedia"><i class="fa fa-circle-o text-red"></i>Cek Pengajuan
-                <span class="label bg-blue label-md pull-right"><?php echo "$aksi[jumlah]";?></span>
+                <span class="label bg-blue label-md pull-right"><?php echo "$tb[jumlah]";?></span>
                 </a>
+<<<<<<< Updated upstream
+=======
+
+                <a href="?module=c_spamPsedia"><i class="fa fa-circle-o text-red"></i>Spam Pengajuan
+                <span class="label bg-maroon label-md pull-right"><?php echo "$sp[jspam]";?></span>
+                </a>
+>>>>>>> Stashed changes
                 
                 </li>
                 <li><a href="?module=t_montlap"><i class="fa fa-circle-o text-red"></i>Monitoring dan Laporan </a></li>

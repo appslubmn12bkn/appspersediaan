@@ -106,8 +106,8 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                       <th bgcolor="#d2d6de">TRANSAKSI</th>
                                                       <th bgcolor="#d2d6de">PROSEDUR</th>
                                                       <th bgcolor="#d2d6de">DESKRIPSI</th>
-                                                      <th bgcolor="#d2d6de">SESUAI</th>
-                                                      <th bgcolor="#d2d6de">TIDAK SESUAI</th>
+                                                      <th bgcolor="#d2d6de">S</th>
+                                                      <th bgcolor="#d2d6de">TS</th>
                                                    </tr>
                                                    </thead>
                                                    <tbody>
@@ -185,11 +185,15 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                   <i class='fa fa-check-square'></i> &nbsp;&nbsp; Barang <b><?php echo"$head[ur_unut]";?> Belum Lengkap</b></button>
 
                                   <?php }else{?>
-                                  <button type='submit' class='btn btn btn-sm btn-primary flat hidden' hidden>
+                                  <button type='submit' class='btn btn btn-sm btn-primary flat'>
                                   <i class='fa fa-check-square'></i> &nbsp;&nbsp; Barang Diterima</button>
                                   <?php }?> 
                                   </div>
                                 </div>
+                                <font color="blue">Keterangan :
+                                    <li>S  = SESUAI</li>
+                                    <li>TS = TIDAK SESUAI</li>
+                                </font>
                             </div>
                             </div>
                         </div>
