@@ -176,7 +176,14 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                             <input type='hidden' name='flag' value='<?php echo"$x[flag]";?>' readonly>
                                                     <?php } ?>
                                                     </table>  
-
+                                  </div>
+                                </div>
+                                <font color="blue">Keterangan :
+                                    <li>S  = SESUAI</li>
+                                    <li>TS = TIDAK SESUAI</li>
+                                </font>
+                            </div>
+                            </div>
                                   <?php if($head[flag]=='61'){?>
                                   <button type='submit' class='btn btn btn-sm btn-primary flat'>
                                   <i class='fa fa-check-square'></i> &nbsp;&nbsp; Barang telah Diterima <b><?php echo"$head[ur_unut]";?></b></button>
@@ -188,14 +195,6 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                   <button type='submit' class='btn btn btn-sm btn-primary flat'>
                                   <i class='fa fa-check-square'></i> &nbsp;&nbsp; Barang Diterima</button>
                                   <?php }?> 
-                                  </div>
-                                </div>
-                                <font color="blue">Keterangan :
-                                    <li>S  = SESUAI</li>
-                                    <li>TS = TIDAK SESUAI</li>
-                                </font>
-                            </div>
-                            </div>
                         </div>
                         </div>
                     </section>

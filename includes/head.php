@@ -50,13 +50,10 @@ $rs  = mysqli_fetch_array($tgl);
                 <a href="?module=c_aksiProsedia"><i class="fa fa-circle-o text-red"></i>Cek Pengajuan
                 <span class="label bg-blue label-md pull-right"><?php echo "$tb[jumlah]";?></span>
                 </a>
-<<<<<<< Updated upstream
-=======
 
                 <a href="?module=c_spamPsedia"><i class="fa fa-circle-o text-red"></i>Spam Pengajuan
                 <span class="label bg-maroon label-md pull-right"><?php echo "$sp[jspam]";?></span>
                 </a>
->>>>>>> Stashed changes
                 
                 </li>
                 <li><a href="?module=t_montlap"><i class="fa fa-circle-o text-red"></i>Monitoring dan Laporan </a></li>
