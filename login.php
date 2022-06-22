@@ -23,7 +23,7 @@ $rs  = mysqli_fetch_array($tgl);
     <title>appspersediaan</title>
   </head>
   <body>
-  <br><br><br><br>
+  <br><br><br>
   <div class="content">
     <div class="container">
       <div class="row">

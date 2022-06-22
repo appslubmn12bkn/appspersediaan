@@ -53,6 +53,7 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                     AND a.flag_kirim = 'Y'
                     ORDER BY a.registrasi");
 ?>
+
                     <section class="content-header">
                       <h1>
                         Cek Penerimaan ATK / ARTK / Bakom (Unit)
