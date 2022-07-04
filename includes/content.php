@@ -136,6 +136,10 @@ if ($_GET['module'] == 'home') {
   if ($_SESSION['LEVEL'] == 'admin' or $_SESSION['LEVEL'] == 'user') {
     include 'media/aksiunit/sedia_cetak.php';
   }
+}elseif ($_GET['module'] == 'c_cekstatus') {
+  if ($_SESSION['LEVEL'] == 'admin' or $_SESSION['LEVEL'] == 'user') {
+    include 'media/aksiunit/sedia_statuscek.php';
+  }
 }
 
 ?>

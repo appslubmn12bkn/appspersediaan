@@ -241,7 +241,8 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                             <select class="s2 form-control"  name='kd_brg'>
                                                                 <option value='BLANK'>PILIH</option>
                                                                 <?php
-                                                                $dataSql = "SELECT  a.kd_brg, a.ur_brg, a.satuan, a.kd_kbrg, 
+                                                                $dataSql = "SELECT  a.kd_brg, a.ur_brg, 
+                                                                                    a.satuan, a.kd_kbrg, 
                                                                                     a.kd_jbrg,b.kd_brg, b.flag
                                                                             FROM c_brgsedia a
                                                                             LEFT JOIN c_imgbrgsedia b ON b.kd_brg = a.kd_brg

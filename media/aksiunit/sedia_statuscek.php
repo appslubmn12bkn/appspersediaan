@@ -51,7 +51,7 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
 ?>
                     <section class="content-header">
                       <h1>
-                        Cek Penerimaan ATK / ARTK / Bakom (Unit)
+                        Pengecekan Status Pengajuan (Unit)
                         <small>Barang Persediaan masuk dan keluar</small>
                       </h1>
                     </section>
@@ -59,32 +59,50 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                     <section class="content">
                         <div class="row">
                         <div class="col-md-12">
-                                  <div class="box">
+                                  <div class="box box-solid">
                                       <div class="box-body">
-                                          <div class="row">
                                             <div class="col-md-12">
-                                              <div>
-                                              <i class="fa fa-info"></i> INFORMASI : <br>
-                                              </div>
-                                              <div>
-                                              <p><font color="blue">Barang cancel/dibatalkan adalah, ATK/ARTK/BAKOM yang dibatalkan pengeluarannya oleh admin karena bisa diperuntukkan yang lebih penting, tidak tampil pada cek Barang Unit</font><br>
-                                              <font color="red"><strong>Exp : KARPEG/KARIS/KARSU stok ada, tapi dibatalkan dikarena pejabat ttdnya sudah tidak berlaku sampai pejabat defenitif.</p></strong></font>
-                                              <p>
-                                              <font color="blue">Data Akan hilang secara otomatis, berdasarkan setelah tanggal proses paling lama 1 bulan atau per transaksi</font>
-                                              </p>
-                                              </div>
+                                              <div class="row">
+                                              <strong>NOMOR REGISTRASI : </strong>
+                                              <form action='' method="post" name="registrasi">
+                                                <div class="col-lg-4">
+                                                    <div class="input-group row">
+                                                        <input type="text" name="registrasi" placeholder="Nomor registrasi" class="form-control">
+                                                          <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;CARI</button>
+                                                          </span>
+                                                    </div>
+                                                </div>
+                                              </form>
                                             </div>
                                           </div>
                                       </div>
                                   </div>
                             </div>
                         </div>
+                        <?php
+                        $a = mysqli_query(
+                        $koneksi,
+                        "   SELECT  a.registrasi, a.unut, 
+                                    a.unit,
+                                    b.r_idutama, b.r_ruangutama                          
+                            FROM c_unitsediaminta a 
+                            LEFT JOIN r_ruangutama b ON b.r_idutama=a.unut
+                            WHERE  a.registrasi ='$_POST[registrasi]'
+                            ORDER BY a.registrasi ASC");
+                        ?>
 
                         <div class="box">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <form name='myform' method='post' action='<?php echo"$aksi?module=c_spamPsedia&act=upTabel";?>'>
+                                        <?php
+                                        $data = mysqli_fetch_array($a);
+                                        $cekdata = mysqli_num_rows($a);
+                                        if (isset($_POST['registrasi']) && $cekdata == 0) {
+                                        echo "<Font color='red'> <h3>DATA TIDAK DITEMUKAN!</h3></font>";
+                                        } else {
+                                        ?>
                                         <table class="table table-bordered table-striped mb-none" id="table_4">
                                                   <thead>
                                                   <tr>
@@ -100,9 +118,26 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                    </thead>
                                                    <tbody>
                                                     <?php
-                                                      $no=0;
-                                                      while ($x = mysqli_fetch_array($tabel)){
-                                                      $no++;
+                                                    $tabel = mysqli_query($koneksi,
+                                                    "SELECT a.registrasi, a.tglproses, a.satuan,
+                                                            a.flag_kirim, a.kd_brg, a.qtyACC, a.tanggaltl,
+                                                            a.qtyMohon, a.merek_type, a.prosedur,
+                                                            b.registrasi, a.catatanpersetujuan, a.catatanklaim,
+                                                            b.tglmohon, b.prosedur,
+                                                            c.kd_brg, c.ur_brg, c.kd_kbrg, c.kd_jbrg,
+                                                            d.flag, d.ur_flag,
+                                                            e.kd_brg, e.jns_trn
+                                                    FROM c_sediakeluarunit  a
+                                                    LEFT JOIN c_unitsediaminta b ON b.registrasi = a.registrasi
+                                                    LEFT JOIN c_brgsedia c ON c.kd_brg = a.kd_brg
+                                                    LEFT JOIN c_prosedia d ON d.flag = a.prosedur
+                                                    LEFT JOIN c_sediakeluar e ON e.kd_brg = a.kd_brg
+                                                    WHERE a.registrasi = '$_POST[registrasi]' 
+                                                    AND a.flag_kirim = 'Y'
+                                                    ORDER BY a.registrasi ASC");
+                                                    $no=0;
+                                                    while ($x = mysqli_fetch_array($tabel)){
+                                                    $no++;
                                                     ?>
                                                     <tr>
                                                       <td><?php echo"$no";?></td>
@@ -134,17 +169,7 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                     <?php } ?>
                                                     </table> 
 
-                                    <input type='hidden' name='registrasi' value='<?php echo"$del[registrasi]";?>' readonly>
-                                    <input type='hidden' name='kd_brg' value='<?php echo"$del[kd_brg]";?>' readonly>
-                                                    <?php if($del[prosedur]=='41') {?>
-                                                    <button type='submit' class='btn btn-sm bg-red'>
-                                                    <i class='fa fa-retweet'></i> &nbsp;&nbsp; Update Tabel 
-                                                    <b><?php echo"$head[ur_unut]";?></b></button>
-                                                    <?php }else{?>
-                                                    <h4>Spam Persediaan Kosong, dialihkan ke barang <font color="red">dibatalkan</font></h4>
-                                                    <?php }?> 
-                                                </form>
-                                                    
+                                  <?php } ?>              
                                   </div>
                                 </div>
                             </div>
