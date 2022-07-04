@@ -105,7 +105,7 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                     <label for="fname" class="col-sm-2 text-right control-label col-form-label">
                                     P I C</label>
                                     <div class="col-sm-3">
-                                    <input type="text" class="form-control" name='pic' value='<?php echo $_SESSION[NIP]; ?>' readonly>
+                                    <input type="text" maxlength='18' class="form-control" name='pic' value='' placeholder='NIP Pemohon'> 
                                     </div>
                                 </div>
                         </div>
@@ -132,7 +132,6 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                     <th bgcolor='#dcdcdc'> UNIT KERJA</th>
                                                     <th bgcolor='#dcdcdc'> <i class="fa fa-calendar"></i> </th>
                                                     <th bgcolor='#dcdcdc'> P I C</th>
-                                                    <th bgcolor='#dcdcdc'> PROSEDUR</th>
                                                     <th bgcolor='#dcdcdc'> QTY</th>
                                                     <th bgcolor='#dcdcdc' width='25px'>UPLOAD</th>
                                                 </tr>
@@ -165,13 +164,8 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
                                                         <td><?php echo "$r[unit]"; ?></td>
                                                         <td><?php echo indotgl($r[tglmohon]); ?></td>
                                                         <td><?php echo "$r[pns_nama]"; ?></td>
-                                                        <?php if($r['prosedur']=='1'){?>
-                                                        <td><span class="label bg-primary"><?php echo "$r[ur_flag]"; ?></span></td>
-                                                        <?php } else { ?>
-                                                        <td><span class="label bg-maroon"><?php echo "$r[ur_flag]"; ?></span></td>
-                                                        <?php } ?>
                                                         <td><?php echo "$r[qtypesanan]"; ?></td>
-                                                        <td align="center">
+                                                        <td align="center" width="170">
                                                         <?php if($r['prosedur']=='1'){?>
                                                         <a class='btn bg-blue btn-sm' href=<?php echo "?module=sedia_pengajuan&act=upload&registrasi=$r[registrasi]"; ?>>
                                                         <i class="fa fa-upload"></i></a>

@@ -130,8 +130,21 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
 						   	WHERE registrasi = '$_GET[registrasi]' 
 						   	AND kd_brg = '$_GET[kd_brg]'");
 
+	//mysqli_query($koneksi,"	UPDATE c_unitsediaminta 
+	//						SET prosedur = IF(prosedur='6','61', prosedur) 
+	//						WHERE registrasi = '$_GET[registrasi]'");
+
+	header('location:../../appsmedia.php?module='.$module);
+	}
+
+	elseif ($module=='c_aksiProsedia' AND $act=='tlAdmin'){
+	mysqli_query($koneksi," UPDATE c_sediakeluarunit 
+						   	SET prosedur = '61' 
+						   	WHERE registrasi = '$_GET[registrasi]' 
+						   	AND kd_brg = '$_GET[kd_brg]'");
+
 	mysqli_query($koneksi,"	UPDATE c_unitsediaminta 
-							SET prosedur = IF(prosedur='6','61', prosedur) 
+							SET prosedur = IF(prosedur='71','61', prosedur) 
 							WHERE registrasi = '$_GET[registrasi]'");
 
 	header('location:../../appsmedia.php?module='.$module);
@@ -163,6 +176,28 @@ if (empty($_SESSION['UNAME']) and empty($_SESSION['PASSWORD'])) {
 							WHERE registrasi = '$_POST[registrasi]'");
 	header('location:../../appsmedia.php?module='.$module);
 }
+
+	elseif ($module=='c_spamPsedia' AND $act=='upTabel'){
+	mysqli_query($koneksi," UPDATE c_sediakeluarunit 
+						   	SET prosedur = '8' 
+						   	WHERE registrasi = '$_POST[registrasi]' 
+						   	AND kd_brg = '$_POST[kd_brg]'");
+
+	header('location:../../appsmedia.php?module='.$module);
+	}
+
+	elseif ($module=='c_aksiProsedia' AND $act=='simpanKlaim'){
+	mysqli_query($koneksi,"UPDATE c_sediakeluarunit 
+						   SET prosedur = '63', 
+						   	   alasantidaksesuai ='$_POST[alasantidaksesuai]', 
+						   	   qtytidaksesuai = '$_POST[qtytidaksesuai]' 
+						   	   WHERE registrasi = '$_POST[registrasi]' AND kd_brg = '$_POST[kd_brg]'");
+
+	mysqli_query($koneksi,"UPDATE c_unitsediaminta 
+						   SET prosedur = IF(prosedur='6','71', IF(prosedur='61','71', IF(prosedur='63','71', IF(prosedur='71','71','prosedur')))) 
+						   WHERE registrasi = '$_POST[registrasi]'");
+	header('location:../../appsmedia.php?module='.$module);
+	}
 
 	
 

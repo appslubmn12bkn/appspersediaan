@@ -25,14 +25,14 @@ $rs  = mysqli_fetch_array($tgl);
             </li>
             <li><a href="?module=sedia_pengajuan"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Pengajuan ATK / ART / Bakom</a> <span class="sr-only">(current)</span></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i>&nbsp;&nbsp;&nbsp;Cek Persediaan <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i>&nbsp;&nbsp;&nbsp;Transaksi ATK/ART/BaKom<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <?php 
                 $cek=umenu_akses("?module=t_mohoncek",$_SESSION[NIP]);
                 if ($cek==1 OR $_SESSION[LEVEL]=='admin' OR $_SESSION[LEVEL]=='user') {
 
                 $tabel = mysqli_query($koneksi, 
-                "SELECT count(registrasi) as jumlah FROM c_unitsediaminta WHERE prosedur='6'");
+                "SELECT count(registrasi) as jumlah FROM c_unitsediaminta WHERE (prosedur IN ('6','64','71'))");
                 if(mysqli_num_rows($tabel) > 0) {
                 $tb = mysqli_fetch_assoc($tabel);
                 }
@@ -47,18 +47,34 @@ $rs  = mysqli_fetch_array($tgl);
                 }
                 ?>
                 <li>
-                <a href="?module=c_aksiProsedia"><i class="fa fa-circle-o text-red"></i>Cek Pengajuan
-                <span class="label bg-blue label-md pull-right"><?php echo "$tb[jumlah]";?></span>
+                <a href="?module=c_aksiProsedia"><i class="fa fa-circle-o text-red"></i>Pengecekan
+                <span class="pull-right-container">
+                  <span class="label bg-blue pull-right"><?php echo "$tb[jumlah]";?></span>
+                </span>
                 </a>
 
-                <a href="?module=c_spamPsedia"><i class="fa fa-circle-o text-red"></i>Spam Pengajuan
-                <span class="label bg-maroon label-md pull-right"><?php echo "$sp[jspam]";?></span>
+                <a href="?module=c_spamPsedia"><i class="fa fa-circle-o text-red"></i>Spam/Cancel
+                  <span class="pull-right-container">
+                    <span class="label bg-maroon pull-right"><?php echo "$sp[jspam]";?></span>
+                  </span>
                 </a>
-                
+
+                <a href="?module=c_printsedia"><i class="fa fa-circle-o text-red"></i>Cetak Bon Barang
+                </a>
                 </li>
-                <li><a href="?module=t_montlap"><i class="fa fa-circle-o text-red"></i>Monitoring dan Laporan </a></li>
-                <?php } ?>
               </ul>
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-television"></i>&nbsp;&nbsp;&nbsp;Monitoring dan Status <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                  <a href="?module=c_montsedia"><i class="fa fa-circle-o"></i>Monitoring Persediaan </a>
+                  </li>
+                  <li><a href="?module=c_cekstatus"><i class="fa fa-circle-o"></i>Cek Status Pengajuan </a>
+                  </li>
+                </ul>
+              </li>
+              <?php } ?>
             </li>
           </ul>
         </div>
