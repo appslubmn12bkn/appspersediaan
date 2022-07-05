@@ -12,17 +12,15 @@ $dtPsedia = mysqli_query($koneksi," SELECT  a.kd_brg, a.ur_brg,
                                     ORDER BY a.kd_brg ASC");
 $Pesedia = mysqli_num_rows($dtPsedia);
 
-$dtSensus = mysqli_query($koneksi," SELECT  a.b_kdbrg, a.b_noaset,
-                                            b.b_kdbrgkond, b.b_noasetkond, 
-                                            b.b_kondisi, b.b_tglperubahan
-                                    FROM b_sensus a
-                                    LEFT JOIN b_sensuskondisi b ON b.b_kdbrgkond = a.b_kdbrg AND b.b_noasetkond = a.b_noaset
-                                    WHERE b_kondisi = '3'
-                                    ORDER BY a.b_kdbrg and a.b_noaset ASC");
-$kondRB = mysqli_num_rows($dtSensus);
+$dtUser = mysqli_query($koneksi," SELECT  a.UNAME, a.NIP, a.PASSWORD, a.LEVEL
+                                    FROM a_useraktif a
+                                    ORDER BY a.UNAME ASC");
+$user = mysqli_num_rows($dtUser);
 
-$bmnsatker = mysqli_query($koneksi," SELECT  * FROM b_bmnsatker ORDER BY kd_brg and no_aset ASC");
-$bmni = mysqli_num_rows($bmnsatker);
+$unit = mysqli_query($koneksi," SELECT idminta, registrasi, unut, COUNT(registrasi) AS regis 
+                                FROM c_unitsediaminta ORDER BY registrasi ASC");
+$reg = mysqli_fetch_array($unit);
+
 
 $penghentian = mysqli_query($koneksi," SELECT  * FROM b_masteraset WHERE jns_trn ='401' ORDER BY kd_brg and no_aset ASC");
 $henti = mysqli_num_rows($penghentian);
@@ -52,9 +50,9 @@ if ($_GET['module'] == 'home') {
             <!-- small box -->
             <div class='small-box bg-green'>
               <div class='inner'>
-                <h3>$kondRB</h3>
+                <h3>$user</h3>
   
-                <p>Rusak Berat</p>
+                <p>Pengguna Akun (UNIT) - ADMIN</p>
               </div>
               <div class='icon'>
                 <i class='ion ion-stats-bars'></i>
@@ -67,9 +65,9 @@ if ($_GET['module'] == 'home') {
             <!-- small box -->
             <div class='small-box bg-yellow'>
               <div class='inner'>
-                <h3>$Sensus</h3>
+                <h3>$reg[regis]</h3>
   
-                <p>Sensus BMN</p>
+                <p>Pengajuan (UNIT)</p>
               </div>
               <div class='icon'>
                 <i class='ion ion-person-add'></i>
