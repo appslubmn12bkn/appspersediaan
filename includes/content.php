@@ -13,17 +13,18 @@ $dtPsedia = mysqli_query($koneksi," SELECT  a.kd_brg, a.ur_brg,
 $Pesedia = mysqli_num_rows($dtPsedia);
 
 $dtUser = mysqli_query($koneksi," SELECT  a.UNAME, a.NIP, a.PASSWORD, a.LEVEL
-                                    FROM a_useraktif a
-                                    ORDER BY a.UNAME ASC");
+                                  FROM a_useraktif a
+                                  ORDER BY a.UNAME ASC");
 $user = mysqli_num_rows($dtUser);
 
 $unit = mysqli_query($koneksi," SELECT idminta, registrasi, unut, COUNT(registrasi) AS regis 
                                 FROM c_unitsediaminta ORDER BY registrasi ASC");
 $reg = mysqli_fetch_array($unit);
 
-
-$penghentian = mysqli_query($koneksi," SELECT  * FROM b_masteraset WHERE jns_trn ='401' ORDER BY kd_brg and no_aset ASC");
-$henti = mysqli_num_rows($penghentian);
+$keluar = mysqli_query($koneksi," SELECT id, registrasi, COUNT(kd_brg) AS brg_kel 
+                                  FROM c_sediakeluarunit 
+                                  ORDER BY registrasi ASC");
+$out = mysqli_fetch_array($keluar);
 
 if ($_GET['module'] == 'home') {
   echo "
@@ -80,9 +81,9 @@ if ($_GET['module'] == 'home') {
             <!-- small box -->
             <div class='small-box bg-red'>
               <div class='inner'>
-                <h3>$henti</h3>
+                <h3>$out[brg_kel]</h3>
   
-                <p>BMN yang sudah dihentikan (Hapus)</p>
+                <p>Transaksi Barang Keluar</p>
               </div>
               <div class='icon'>
                 <i class='ion ion-pie-graph'></i>
